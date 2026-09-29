@@ -34,11 +34,12 @@ const PHONE = 'tel:+919837222899';
 const products = [
   { title: 'TallyPrime', text: 'Business management software for accounting, GST, inventory, payroll, and financial reporting.', icon: BarChart3, image: '/assets/images/OIP .webp', tone: 'blue' },
   { title: 'TallyPrime Edit Log', text: 'Track and review changes in business data to improve transparency and audit readiness.', icon: FileCheck2, image: '/assets/images/tallyprime_Editlo71.webp', tone: 'gold' },
-  { title: 'TPS', text: 'Centralized multi-user server solution for secure, high-performance business operations.', icon: Server, image: '/assets/images/tally-prime-server-horizontal.svg', tone: 'navy' },
-  { title: 'Tally Software Services', text: 'Professional services, support, implementation, and customization for Tally users.', icon: LifeBuoy, tone: 'gold' },
-  { title: 'TallyPrime Cloud Access', text: 'Cloud access options that help you work remotely with better flexibility and uptime.', icon: Cloud, tone: 'navy' },
-  { title: 'TallyDeveloper 9', text: 'Developer environment for building custom solutions and extensions around Tally.', icon: Code2, image: '/assets/images/tally-prime-developer-logo-horizontal.svg', tone: 'blue' },
-  { title: 'Silver, Gold, Rental & Lifetime', text: 'Flexible licensing plans designed for different business sizes and long-term requirements.', icon: IndianRupee, tone: 'gold' },
+  { title: 'TallyPrime Server', text: 'Centralized multi-user server solution for secure, high-performance business operations.', icon: Server, image: '/assets/images/tally-prime-server-horizontal.svg', tone: 'navy' },
+ 
+  { title: 'Tally Prime Developer', text: 'Professional services, support, implementation, and customization for Tally users.', icon: LifeBuoy,image: '/assets/images/tally-prime-developer-logo-horizontal.svg' , tone: 'gold' },
+  { title: 'TallyPrime Cloud Access', text: 'Cloud access options that help you work remotely with better flexibility and uptime.', icon: Cloud, image: '/assets/images/TP_Cloud_logo.jpg', tone: 'navy' },
+  
+  { title: 'TSS', text: 'Flexible licensing plans(Silver, Gold, Rental & Lifetime) designed for different business sizes and long-term requirements.', icon: IndianRupee, tone: 'gold' },
 ];
 
 const services = [
@@ -121,7 +122,7 @@ function Home() {
           </motion.div>
         </div>
       </section>
-      <div className="trust-strip"><div className="container trust-strip-inner"><span>Powering smarter operations with</span><strong>TallyPrime</strong><strong>TallyPrime Server</strong><strong>TSS</strong><strong>Tally Cloud</strong></div></div>
+      <div className="trust-strip"><div className="container trust-strip-inner"><span>Powering smarter operations with</span><strong>TallyPrime</strong><strong>TPS</strong><strong>TSS</strong><strong>Cloud</strong></div></div>
       <ProductPreview />
       <ServicePreview />
       <TestimonialSection />
@@ -131,12 +132,28 @@ function Home() {
 }
 
 function ProductPreview() {
-  return <section className="section section-tint"><div className="container"><SectionHeading eyebrow="Product range" title="Tools that scale with your business." copy="From daily accounting to enterprise-grade access, choose the Tally products and plans that fit the way you work." action={<Link className="text-link" to="/products">View all products <ChevronRight size={17} /></Link>} /><motion.div className="product-grid" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={stagger}>{products.slice(0, 4).map((product) => <ProductCard key={product.title} product={product} />)}</motion.div></div></section>;
+  return <section className="section section-tint">
+            <div className="container">
+              <SectionHeading eyebrow="Product range" title="Tools that scale with your business." copy="From daily accounting to enterprise-grade access, choose the Tally products and plans that fit the way you work." action={<Link className="text-link" to="/products">View all products <ChevronRight size={17} /></Link>} />
+              <motion.div className="product-grid" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={stagger}>
+                {products.slice(0, 4).map((product) => <ProductCard key={product.title} product={product} />)}
+              </motion.div>
+            </div>
+          </section>;
 }
 
 function ProductCard({ product }) {
   const Icon = product.icon;
-  return <motion.article className={`product-card product-${product.tone}`} variants={fadeUp} whileHover={{ y: -6 }}><div className="product-card-top"><div className="product-icon"><Icon size={20} /></div></div>{product.image ? <div className="product-image"><img src={product.image} alt={product.title} loading="lazy" /></div> : null}<h3>{product.title}</h3><p>{product.text}</p></motion.article>;
+  return <motion.article className={`product-card product-${product.tone}`} variants={fadeUp} whileHover={{ y: -6 }}>
+    <div className="product-card-top">
+      <div className="product-icon"><Icon size={20} /></div>
+      <span className="product-arrow"><ArrowRight size={18} /></span>
+    </div>
+      {product.image ? <div className="product-image"><img src={product.image} alt={product.title} loading="lazy" /></div>: null}
+      <h3>{product.title}</h3>
+      <p>{product.text}</p>
+      <Link className="card-link" to="/products">Learn more <ArrowRight size={15} /></Link>
+      </motion.article>;
 }
 
 function ServicePreview() {
@@ -156,7 +173,16 @@ function About() {
 }
 
 function Products() {
-  return <PageLayout eyebrow="Product range" title="The Tally ecosystem, made easier to choose." intro="Explore TallyPrime, enterprise server tools, developer environments, cloud access, and flexible licensing plans available through Shree Vaishnavi Software."><section className="section"><div className="container product-grid product-grid-full">{products.map((product) => <ProductCard key={product.title} product={product} />)}</div></section><ContactCta /></PageLayout>;
+  return <PageLayout eyebrow="Product range" 
+                     title="The Tally ecosystem, made easier to choose." 
+                     intro="Explore TallyPrime, enterprise server tools, developer environments, cloud access, and flexible licensing plans available through Shree Vaishnavi Software.">
+      
+    <section className="section">
+      <div className="container product-grid product-grid-full">
+        {products.map((product) => <ProductCard key={product.title} product={product} />)}
+      </div>
+    </section><ContactCta />
+    </PageLayout>;
 }
 
 function Contact() {
@@ -207,7 +233,7 @@ function SectionHeading({ eyebrow, title, copy, action }) {
 }
 
 function Footer() {
-  return <footer className="site-footer"><div className="container footer-grid"><div><Link to="/" className="brand footer-brand"><div className="brand-visuals"><img src="/assets/images/LogoSVSWhite.jpg" alt="Shree Vaishnavi Software logo" /><img className="partner-mark" src="/assets/images/tally-partnerlogo.jpg" alt="Tally Certified 3 Star Partner" /></div><span className="brand-copy"><strong>SHREE VAISHNAVI</strong><small>SOFTWARE • BAREILLY</small></span></Link><p className="footer-copy">Tally software sales, implementation, and practical support for business success.</p></div><div><h3>Explore</h3><Link to="/about">About us</Link><Link to="/products">Products</Link><Link to="/contact">Contact</Link></div><div><h3>Contact</h3><a href={PHONE}>9837222899 · 9359120221</a><a href="mailto:svstallybly@gmail.com">svstallybly@gmail.com</a><a href={MAP_URL} target="_blank" rel="noreferrer">428 Indra Nagar, Bareilly</a></div></div><div className="bottom-bar"><div className="container"><a href="https://chitranceinfotech.com">© 2026 Chitrance Infotech</a><span>Authorized Tally Certified 3-Star Partner</span></div></div></footer>;
+  return <footer className="site-footer"><div className="container footer-grid"><div><Link to="/" className="brand footer-brand"><div className="brand-visuals"><img src="/assets/images/LogoSVSWhite.jpg" alt="Shree Vaishnavi Software logo" /><img className="partner-mark" src="/assets/images/tally-partnerlogo.jpg" alt="Tally Certified 3 Star Partner" /></div><span className="brand-copy"><strong>SHREE VAISHNAVI</strong><small>SOFTWARE • BAREILLY</small></span></Link><p className="footer-copy">Tally software sales, implementation, and practical support for business success.</p></div><div><h3>Explore</h3><Link to="/about">About us</Link><Link to="/products">Products</Link><Link to="/contact">Contact</Link></div><div><h3>Contact</h3><a href={PHONE}>9837222899 · 9359120221</a><a href="mailto:svstallybly@gmail.com">svstallybly@gmail.com</a><a href={MAP_URL} target="_blank" rel="noreferrer">428 Indra Nagar, Bareilly</a></div></div><div className="bottom-bar"><div className="container"><span>Built <a href="https://www.chitranceinfotech.com" target="_blank" rel="noreferrer">by Chitrance Infotech</a></span><span>Authorized Tally Certified 3-Star Partner</span></div></div></footer>;
 }
 
 export default App;
